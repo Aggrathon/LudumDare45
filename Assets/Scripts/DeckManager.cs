@@ -7,6 +7,7 @@ public class DeckManager : MonoBehaviour
 
     [SerializeField] protected TMPro.TextMeshProUGUI libraryText;
     [SerializeField] protected TMPro.TextMeshProUGUI discardText;
+    [SerializeField] protected TMPro.TextMeshProUGUI energyText;
 
     [SerializeField] protected Transform cardPrefab;
     [SerializeField] protected Transform handTransform;
@@ -16,7 +17,8 @@ public class DeckManager : MonoBehaviour
     private List<BaseCard> discardPile;
     private List<BaseCard> drawPile;
 
-    [System.NonSerialized] public int energy = 0;
+    int _energy = 0;
+    public int energy { get { return _energy; } set { _energy = value; if (energyText != null) energyText.text = _energy.ToString(); } }
     [System.NonSerialized] public bool interactable = false;
 
     private void Awake() {

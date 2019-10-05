@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     DeckManager deckManager;
 
     [SerializeField] protected GameObject endTurnButton;
+    [SerializeField] protected TMPro.TextMeshProUGUI healthText;
 
     GameManager gameManager;
 
@@ -19,11 +20,14 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     private void Awake() {
         endTurnButton?.SetActive(false);
         deckManager = GetComponent<DeckManager>();
+        maxHealth = health;
+        healthText.text = string.Format("{0}<color=black><size=20>\n{1}</size></color>", health, maxHealth);
     }
 
-    public int energyGain = 1;
-    public int cardGain = 2;
-    public int health;
+    [SerializeField] protected int energyGain = 1;
+    [SerializeField] protected int cardGain = 2;
+    [SerializeField] protected int health = 10;
+    protected int maxHealth;
 
     public void StartCombat(GameManager manager) {
         gameManager = manager;
@@ -62,5 +66,22 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     public void Upgrade() {
         //TODO: Upgrade
         gameManager.Next();
+    }
+
+    public void Damage(int amount) {
+        health -= amount;
+        healthText.text = string.Format("{0}<color=black><size=20>\n{1}</size></color>", health, maxHealth);
+        if (health <= 0)
+            gameManager?.Loose(this);
+    }
+
+    public void Heal(int amount, bool over = false) {
+        health += amount;
+        if (health > maxHealth) {
+            if (over)
+                maxHealth += (health - maxHealth)/2;
+            health = maxHealth;
+        }
+        healthText.text = string.Format("{0}<color=black><size=20>\n{1}</size></color>", health, maxHealth);
     }
 }
