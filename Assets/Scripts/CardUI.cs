@@ -17,12 +17,14 @@ public class CardUI : MonoBehaviour
     public LineRenderer line2;
     bool dragging = false;
     Camera cam;
+    DeckManager manager;
 
-    public void Setup(BaseCard card) {
+    public void Setup(BaseCard card, DeckManager manager) {
         this.card = card;
         sprite.sprite = card.sprite;
         description.text = card.GetDescription();
         energy.text = card.cost.ToString();
+        this.manager = manager;
 
         cam = Camera.main;
         line1.enabled = false;
@@ -65,7 +67,7 @@ public class CardUI : MonoBehaviour
             if (Physics.Raycast(cam.ScreenPointToRay(eventData.position), out hit, 100f)) {
                 target = hit.transform.GetComponent<BoardTarget>();
             }
-            if (card.Cast(target))
+            if (card.Cast(target, manager))
                 Destroy(gameObject);
         }
         dragging = false;

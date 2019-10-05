@@ -17,8 +17,9 @@ public class BaseCard : ScriptableObject
         return "This is a test card";
     }
 
-    public virtual bool Cast(BoardTarget target) {
+    public virtual bool Cast(BoardTarget target, DeckManager manager) {
         Debug.Log("Casted 'Test Card' on "+target);
+        manager.Discard(this);
         return true;
     }
 }
