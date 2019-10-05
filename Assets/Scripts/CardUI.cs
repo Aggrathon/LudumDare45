@@ -13,7 +13,8 @@ public class CardUI : MonoBehaviour
     public TMPro.TextMeshProUGUI energy;
 
     public EventTrigger eventTrigger;
-    public LineRenderer line;
+    public LineRenderer line1;
+    public LineRenderer line2;
     bool dragging = false;
     Camera cam;
 
@@ -22,7 +23,14 @@ public class CardUI : MonoBehaviour
         sprite.sprite = card.sprite;
         description.text = card.GetDescription();
         energy.text = card.cost.ToString();
+
         cam = Camera.main;
+        line1.enabled = false;
+        line2.enabled = false;
+        line2.startColor = card.color;
+        line2.endColor = card.color;
+        line1.transform.rotation = Quaternion.LookRotation(-transform.up, transform.forward);
+        line2.transform.rotation = Quaternion.LookRotation(-transform.up, transform.forward);
 
         var start = new EventTrigger.Entry();
         start.eventID = EventTriggerType.BeginDrag;
@@ -41,10 +49,13 @@ public class CardUI : MonoBehaviour
 
     private void OnBeginDrag(PointerEventData eventData) {
         dragging = true;
-        line.enabled = true;
-        var pos = GetGroundIntersect(eventData.position, 3f);
-        line.SetPosition(0, pos);
-        line.SetPosition(1, pos);
+        line1.enabled = true;
+        line2.enabled = true;
+        var pos = GetGroundIntersect(transform.position * 1.05f, 2f);
+        line1.SetPosition(0, pos);
+        line1.SetPosition(1, pos);
+        line2.SetPosition(0, pos);
+        line2.SetPosition(1, pos);
     }
 
     private void OnPointerUp(PointerEventData eventData) {
@@ -58,11 +69,13 @@ public class CardUI : MonoBehaviour
                 Destroy(gameObject);
         }
         dragging = false;
-        line.enabled = false;
+        line1.enabled = false;
+        line2.enabled = false;
     }
 
     private void OnDrag(PointerEventData eventData) {
-        line.SetPosition(1, GetGroundIntersect(eventData.position, 0.1f));
+        line1.SetPosition(1, GetGroundIntersect(eventData.position, 1f));
+        line2.SetPosition(1, GetGroundIntersect(eventData.position, 1f));
     }
 
     private Vector3 GetGroundIntersect(Vector3 screenPos, float height) {

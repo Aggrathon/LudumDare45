@@ -15,4 +15,5 @@ MonoBehaviour:
   cardName: Test Card
   cost: 0
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  color: {r: 1, g: 0, b: 0, a: 0.8}
   upgrades: []

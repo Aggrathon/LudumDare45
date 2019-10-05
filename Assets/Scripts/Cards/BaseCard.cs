@@ -9,6 +9,7 @@ public class BaseCard : ScriptableObject
     public string cardName;
     public int cost;
     public Sprite sprite;
+    public Color color;
 
     public BaseCard[] upgrades;
     
