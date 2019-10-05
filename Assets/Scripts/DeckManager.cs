@@ -16,12 +16,24 @@ public class DeckManager : MonoBehaviour
     private List<BaseCard> discardPile;
     private List<BaseCard> drawPile;
 
+    [System.NonSerialized] public int energy = 0;
+    [System.NonSerialized] public bool interactable = false;
+
     private void Awake() {
         deck = new List<BaseCard>(defaultHand);
         discardPile = new List<BaseCard>();
-        drawPile = new List<BaseCard>(deck);
+        drawPile = new List<BaseCard>();
+    }
+
+    public void PrepareBattle() {
+        discardPile.Clear();
+        drawPile.Clear();
+        drawPile.AddRange(deck);
+        energy = 0;
         if (libraryText != null)
             libraryText.text = drawPile.Count + " Cards";
+        if (discardText != null)
+            discardText.text = "0 Cards";
     }
 
     public void Discard(BaseCard card) {
@@ -33,15 +45,7 @@ public class DeckManager : MonoBehaviour
     public void Shuffle() {
         drawPile.AddRange(discardPile);
         discardPile.Clear();
-        for (int i = 0; i < drawPile.Count - 1; i++)
-        {
-            int o = UnityEngine.Random.Range(i, drawPile.Count);
-            if (i != o) {
-                var tmp = drawPile[i];
-                drawPile[i] = drawPile[o];
-                drawPile[o] = tmp;
-            }
-        }
+        Utils.ShuffleList(drawPile);
         if (discardText != null)
             discardText.text = "0 Cards";
         if (libraryText != null)
@@ -85,6 +89,15 @@ public class DeckManager : MonoBehaviour
         drawPile.Insert(UnityEngine.Random.Range(0, drawPile.Count+1), card);
         if (libraryText != null)
             libraryText.text = drawPile.Count + " Cards";
+    }
+
+    public void AddToDeck(BaseCard card) {
+        deck.Add(card);
+        Utils.ShuffleList(deck);
+    }
+
+    public bool RemoveFromDeck(BaseCard card) {
+        return deck.Remove(card);
     }
 
 }

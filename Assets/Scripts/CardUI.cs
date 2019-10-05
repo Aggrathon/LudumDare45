@@ -50,6 +50,12 @@ public class CardUI : MonoBehaviour
     
 
     private void OnBeginDrag(PointerEventData eventData) {
+        if (!manager.interactable || manager.energy < card.cost) {
+            //TODO: Alert the user
+            dragging = false;
+            line1.enabled = false;
+            line2.enabled = false;
+        }
         dragging = true;
         line1.enabled = true;
         line2.enabled = true;
