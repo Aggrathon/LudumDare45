@@ -11,11 +11,13 @@ public class DeckManager : MonoBehaviour
 
     [SerializeField] protected Transform cardPrefab;
     [SerializeField] protected Transform handTransform;
+    [SerializeField] protected MessageWindow messageWindow;
 
     [SerializeField] protected List<BaseCard> defaultHand;
     private List<BaseCard> deck;
     private List<BaseCard> discardPile;
     private List<BaseCard> drawPile;
+    public List<Unit> units;
 
     int _energy = 0;
     public int energy { get { return _energy; } set { _energy = value; if (energyText != null) energyText.text = _energy.ToString(); } }
@@ -25,6 +27,7 @@ public class DeckManager : MonoBehaviour
         deck = new List<BaseCard>(defaultHand);
         discardPile = new List<BaseCard>();
         drawPile = new List<BaseCard>();
+        units = new List<Unit>();
     }
 
     public void PrepareBattle() {
@@ -32,6 +35,9 @@ public class DeckManager : MonoBehaviour
         drawPile.Clear();
         drawPile.AddRange(deck);
         energy = 0;
+        foreach (var u in units)
+            Destroy(u);
+        units.Clear();
         if (libraryText != null)
             libraryText.text = drawPile.Count + " Cards";
         if (discardText != null)
@@ -95,11 +101,15 @@ public class DeckManager : MonoBehaviour
 
     public void AddToDeck(BaseCard card) {
         deck.Add(card);
-        Utils.ShuffleList(deck);
     }
 
     public bool RemoveFromDeck(BaseCard card) {
         return deck.Remove(card);
+    }
+
+    public void Alert(string msg) {
+        if (messageWindow != null)
+            messageWindow.Alert(msg);
     }
 
 }

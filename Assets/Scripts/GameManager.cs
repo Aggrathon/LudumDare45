@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerManager player;
     IPlayerManager enemy;
 
+    public Board groundTargets;
+
     private void Start() {
         player.StartCombat(this);
         //TODO: Enemies
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void Next() {
+        groundTargets.Unlight();
         if (enemy == null) {
             //TODO: Next story step
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(EventTrigger))]
 public class CardUI : MonoBehaviour
 {
 
@@ -11,8 +12,10 @@ public class CardUI : MonoBehaviour
     public Image sprite;
     public TMPro.TextMeshProUGUI description;
     public TMPro.TextMeshProUGUI energy;
+    public TMPro.TextMeshProUGUI nameText;
+    public Image border;
 
-    public EventTrigger eventTrigger;
+    EventTrigger eventTrigger;
     public LineRenderer line1;
     public LineRenderer line2;
     bool dragging = false;
@@ -25,6 +28,11 @@ public class CardUI : MonoBehaviour
         description.text = card.GetDescription();
         energy.text = card.cost.ToString();
         this.manager = manager;
+        var col = card.color;
+        col.a = 1f;
+        border.color = col;
+        nameText.text = card.cardName;
+        nameText.color = col;
 
         cam = Camera.main;
         line1.enabled = false;
@@ -34,6 +42,7 @@ public class CardUI : MonoBehaviour
         line1.transform.rotation = Quaternion.LookRotation(-transform.up, transform.forward);
         line2.transform.rotation = Quaternion.LookRotation(-transform.up, transform.forward);
 
+        eventTrigger = GetComponent<EventTrigger>();
         var start = new EventTrigger.Entry();
         start.eventID = EventTriggerType.BeginDrag;
         start.callback.AddListener((d) => OnBeginDrag((PointerEventData)d));
@@ -51,7 +60,11 @@ public class CardUI : MonoBehaviour
 
     private void OnBeginDrag(PointerEventData eventData) {
         if (!manager.interactable || manager.energy < card.cost) {
-            //TODO: Alert the user
+            if (!manager.interactable) {
+                manager.Alert("Not your turn!");
+            } else {
+                manager.Alert("Not enough energy!");
+            }
             dragging = false;
             line1.enabled = false;
             line2.enabled = false;

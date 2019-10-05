@@ -32,6 +32,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     public void StartCombat(GameManager manager) {
         gameManager = manager;
         deckManager.PrepareBattle();
+        deckManager.Shuffle();
         endTurnButton?.SetActive(false);
     }
 
@@ -45,6 +46,10 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
             deckManager.DrawToHand();
         deckManager.interactable = true;
         endTurnButton?.SetActive(true);
+        for (int i = 0; i < deckManager.units.Count; i++)
+        {
+            deckManager.units[i].hasMoved = false;
+        }
     }
 
     public void EndTurn() {
