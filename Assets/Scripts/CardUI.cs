@@ -68,15 +68,34 @@ public class CardUI : MonoBehaviour
             dragging = false;
             line1.enabled = false;
             line2.enabled = false;
+            manager.board.Unlight();
         }
         dragging = true;
         line1.enabled = true;
         line2.enabled = true;
-        var pos = GetGroundIntersect(transform.position * 1.05f, 2f);
+        var pos = Utils.GetGroundIntersect(cam.ScreenPointToRay(transform.position * 1.05f), 2f);
         line1.SetPosition(0, pos);
         line1.SetPosition(1, pos);
         line2.SetPosition(0, pos);
         line2.SetPosition(1, pos);
+        switch (card.target)
+        {
+            case BaseCard.Target.Empty:
+                manager.board.Highlight((BoardTarget b) => b.unit == null);
+                break;
+            case BaseCard.Target.Global:
+                manager.board.Highlight((_) => true);
+                break;
+            case BaseCard.Target.Enemy:
+                manager.board.Highlight((BoardTarget b) => b?.unit?.team != manager);
+                break;
+            case BaseCard.Target.Friendly:
+                manager.board.Highlight((BoardTarget b) => b?.unit?.team == manager);
+                break;
+            case BaseCard.Target.Spawn:
+                manager.board.Highlight((BoardTarget b) => Utils.Vector3InBox(manager.transform.position, manager.spawnPositionLimit, b.transform.position));
+                break;
+        }
     }
 
     private void OnPointerUp(PointerEventData eventData) {
@@ -92,18 +111,11 @@ public class CardUI : MonoBehaviour
         dragging = false;
         line1.enabled = false;
         line2.enabled = false;
+        manager.board.Unlight();
     }
 
     private void OnDrag(PointerEventData eventData) {
-        line1.SetPosition(1, GetGroundIntersect(eventData.position, 1f));
-        line2.SetPosition(1, GetGroundIntersect(eventData.position, 1f));
-    }
-
-    private Vector3 GetGroundIntersect(Vector3 screenPos, float height) {
-        var ray = cam.ScreenPointToRay(screenPos);
-        if (height > ray.origin.y)
-            return ray.origin;
-        height =  - (ray.origin.y - height) / ray.direction.y;
-        return ray.origin + ray.direction * height;
+        line1.SetPosition(1, Utils.GetGroundIntersect(cam.ScreenPointToRay(eventData.position), 1f));
+        line2.SetPosition(1, Utils.GetGroundIntersect(cam.ScreenPointToRay(eventData.position), 1f));
     }
 }

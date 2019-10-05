@@ -20,7 +20,10 @@ public class MissileCard : BaseCard
                 manager.Alert("Target is friendly!");
                 return false;
             }
-            //TODO: deal damage
+            if (damage < 0)
+                target.unit.Heal(-damage);
+            else
+                target.unit.Damage(damage);
             manager.Discard(this);
             return true;
         }

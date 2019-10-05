@@ -39,4 +39,10 @@ public static class Utils
         }
         mover.position = position;
     }
+
+    public static bool Vector3InBox(Vector3 center, Vector3 limits, Vector3 other) {
+        var diff = (center - other);
+        diff = Vector3.Scale(diff, diff) - Vector3.Scale(limits, limits);
+        return diff.x <= 0 & diff.y <= 0 & diff.z <= 0;
+    }
 }

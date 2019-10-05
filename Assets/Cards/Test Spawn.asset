@@ -16,5 +16,6 @@ MonoBehaviour:
   cost: 0
   sprite: {fileID: 21300000, guid: 5b274f408b7153248a5a82bfeb572d55, type: 3}
   color: {r: 0.011505361, g: 0.3679245, b: 0, a: 0.92156863}
+  target: 4
   upgrades: []
   unit: {fileID: 8446599505824863705, guid: d172c1fbbed98a449a3a07dc6b212926, type: 3}

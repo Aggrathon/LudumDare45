@@ -5,11 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Cards/BaseCard")]
 public class BaseCard : ScriptableObject
 {
+    public enum Target
+    {
+        Global, Empty, Friendly, Enemy, Spawn
+    }
 
     public string cardName;
     public int cost;
     public Sprite sprite;
     public Color color;
+    public Target target;
 
     public BaseCard[] upgrades;
     

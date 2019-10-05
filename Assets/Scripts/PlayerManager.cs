@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 
     [SerializeField] protected GameObject endTurnButton;
     [SerializeField] protected TMPro.TextMeshProUGUI healthText;
+    [SerializeField] protected GameObject gameOverScreen;
 
     GameManager gameManager;
 
@@ -31,7 +32,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 
     public void StartCombat(GameManager manager) {
         gameManager = manager;
-        deckManager.PrepareBattle();
+        deckManager.PrepareBattle(manager.groundTargets);
         deckManager.Shuffle();
         endTurnButton?.SetActive(false);
     }
@@ -64,7 +65,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         if (won) {
             Upgrade();
         } else {
-            //TODO: Loose
+            gameOverScreen.SetActive(true);
         }
     }
 

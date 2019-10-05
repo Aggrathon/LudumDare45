@@ -20,7 +20,10 @@ public class SpawnCard : BaseCard
             manager.Alert("Space is already occupied!");
             return false;
         } else {
-            //TODO: check if close enough
+            if (this.target == Target.Spawn && !Utils.Vector3InBox(manager.transform.position, manager.spawnPositionLimit, target.transform.position)) {
+                manager.Alert("Can only be spawned on the homerow!");
+                return false;
+            }
             Instantiate(unit, target.transform.position, Quaternion.identity).Setup(manager, target);
             return true;
         }

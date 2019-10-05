@@ -13,6 +13,9 @@ public class DeckManager : MonoBehaviour
     [SerializeField] protected Transform handTransform;
     [SerializeField] protected MessageWindow messageWindow;
 
+    [System.NonSerialized] public Board board;
+    public Vector3 spawnPositionLimit = new Vector3(10f, 1f, 1f);
+
     [SerializeField] protected List<BaseCard> defaultHand;
     private List<BaseCard> deck;
     private List<BaseCard> discardPile;
@@ -30,7 +33,7 @@ public class DeckManager : MonoBehaviour
         units = new List<Unit>();
     }
 
-    public void PrepareBattle() {
+    public void PrepareBattle(Board board) {
         discardPile.Clear();
         drawPile.Clear();
         drawPile.AddRange(deck);
@@ -42,6 +45,7 @@ public class DeckManager : MonoBehaviour
             libraryText.text = drawPile.Count + " Cards";
         if (discardText != null)
             discardText.text = "0 Cards";
+        this.board = board;
     }
 
     public void Discard(BaseCard card) {
