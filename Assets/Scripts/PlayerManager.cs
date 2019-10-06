@@ -12,14 +12,14 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     [SerializeField] GameObject endTurnButton;
     [SerializeField] TMPro.TextMeshProUGUI healthText;
     [SerializeField] GameObject gameOverScreen;
-    [SerializeField] Upgrades upgrades;
+    [SerializeField] internal Upgrades upgrades;
     [SerializeField] Vector3 vulnerableZone = new Vector3(3, 1, 1);
 
     GameManager gameManager;
 
-    GameObject headItem;
-    GameObject chestItem;
-    GameObject handItem;
+    internal Equipment headItem;
+    internal Equipment chestItem;
+    internal Equipment handItem;
 
     private void Awake() {
         endTurnButton?.SetActive(false);
@@ -31,13 +31,16 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     [SerializeField] protected int energyGain = 1;
     [SerializeField] protected int cardGain = 2;
     [SerializeField] protected int health = 10;
-    protected int maxHealth;
+    internal int maxHealth;
 
     public void StartCombat(GameManager manager) {
         gameManager = manager;
         deckManager.PrepareBattle(manager.groundTargets);
         deckManager.Shuffle();
         endTurnButton?.SetActive(false);
+        handItem?.OnCombat(this);
+        headItem?.OnCombat(this);
+        chestItem?.OnCombat(this);
     }
 
     public void StartTurn() {
@@ -54,6 +57,9 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         {
             deckManager.units[i].hasMoved = false;
         }
+        handItem?.OnTurn(this);
+        headItem?.OnTurn(this);
+        chestItem?.OnTurn(this);
     }
 
     public void EndTurn() {

@@ -29,13 +29,6 @@ public class DeckManager : MonoBehaviour
     public int energy { get { return _energy; } set { _energy = value; if (energyText != null) energyText.text = _energy.ToString(); } }
     [System.NonSerialized] public bool interactable = false;
 
-    private void Awake() {
-        _deck = new List<BaseCard>(defaultHand);
-        _discardPile = new List<BaseCard>();
-        _drawPile = new List<BaseCard>();
-        units = new List<Unit>();
-    }
-
     public void PrepareBattle(Board board) {
         ClearBoard();
         _drawPile.AddRange(_deck);
@@ -48,11 +41,23 @@ public class DeckManager : MonoBehaviour
     }
 
     public void ClearBoard() {
-        _discardPile.Clear();
-        _drawPile.Clear();
-        foreach (var u in units)
-            Destroy(u.gameObject);
-        units.Clear();
+        if (_deck == null)
+            _deck = new List<BaseCard>(defaultHand);
+        if (_discardPile == null)
+            _discardPile = new List<BaseCard>();
+        else
+            _discardPile.Clear();
+        if (_drawPile == null)
+            _drawPile = new List<BaseCard>();
+        else
+            _drawPile.Clear();
+        if (units == null)
+            units = new List<Unit>();
+        else {
+            foreach (var u in units)
+                Destroy(u.gameObject);
+            units.Clear();
+        }
     }
 
     public void Discard(BaseCard card) {

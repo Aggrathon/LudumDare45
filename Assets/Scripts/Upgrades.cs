@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,26 +11,29 @@ public class Upgrades : MonoBehaviour
     public Transform replaceNewCard;
     public Transform equipmentOldCard;
     public Transform equipmentNewCard;
-
+    public TMPro.TextMeshProUGUI title;
     public PlayerManager player;
 
     public List<BaseCard> baseCards;
+    public List<Equipment> equipment;
+
+    public int numUpgrades = 1;
 
     int numLeft;
     BaseCard _addNewCard;
     BaseCard _replaceOldCard;
     BaseCard _replaceNewCard;
-    BaseCard _equipmentOldCard;
-    BaseCard _equipmentNewCard;
+    Equipment _equipmentOldCard;
+    Equipment _equipmentNewCard;
 
     public void Show() {
-        numLeft = 2;
+        numLeft = numUpgrades;
         SetupUpgrades();
         gameObject.SetActive(true);
     }
 
     private void SetupUpgrades() {
-        //TODO: A number somewhere telling how many upgrades you can select
+        title.text = string.Format("Select One    ({0}/{1})", numLeft, numUpgrades);
         _addNewCard = baseCards[UnityEngine.Random.Range(0, baseCards.Count)];
         PopulateCard(_addNewCard, addNewCard);
         _replaceOldCard = player.deck.deck[UnityEngine.Random.Range(0, player.deck.deck.Count)];
@@ -40,7 +44,29 @@ public class Upgrades : MonoBehaviour
             _replaceNewCard = _replaceOldCard.upgrades[UnityEngine.Random.Range(0, _replaceOldCard.upgrades.Length)];
         }
         PopulateCard(_replaceNewCard, replaceNewCard);
-        //TODO: Implement Equipment
+        _equipmentOldCard = null;
+        _equipmentNewCard = null;
+        Array values = Enum.GetValues(typeof(Equipment.Type));
+        var rar = 0;
+        Equipment.Type type = (Equipment.Type)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+        do {
+            type = (Equipment.Type)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+            switch(type) {
+                case Equipment.Type.Chest:
+                    _equipmentOldCard = player.chestItem;
+                    break;
+                case Equipment.Type.Hand:
+                    _equipmentOldCard = player.handItem;
+                    break;
+                case Equipment.Type.Head:
+                    _equipmentOldCard = player.headItem;
+                    break;
+            }
+            rar = _equipmentOldCard != null ? rar = _equipmentOldCard.rarity : 0;
+            _equipmentNewCard = equipment[UnityEngine.Random.Range(0, equipment.Count)];
+        } while (!(_equipmentNewCard.rarity == rar || _equipmentNewCard.rarity == rar + 1) || _equipmentNewCard == _equipmentOldCard || _equipmentNewCard.type != type);
+        PopulateEquipment(_equipmentNewCard, equipmentNewCard);
+        PopulateEquipment(_equipmentOldCard, equipmentOldCard);
     }
 
     public void UpgradeHealth() {
@@ -66,7 +92,23 @@ public class Upgrades : MonoBehaviour
     }
 
     public void UpgradeEquipment() {
-        //TODO: Implement Equipment
+        switch(_equipmentNewCard.type) {
+            case Equipment.Type.Chest:
+                player.chestItem?.OnDequip(player);
+                player.chestItem = _equipmentNewCard;
+                _equipmentNewCard.OnEquip(player);
+                break;
+            case Equipment.Type.Hand:
+                player.handItem?.OnDequip(player);
+                player.handItem = _equipmentNewCard;
+                _equipmentNewCard.OnEquip(player);
+                break;
+            case Equipment.Type.Head:
+                player.headItem?.OnDequip(player);
+                player.headItem = _equipmentNewCard;
+                _equipmentNewCard.OnEquip(player);
+                break;
+        }
         FinishUpgrade();
     }
 
@@ -89,5 +131,15 @@ public class Upgrades : MonoBehaviour
         parent.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().color = col;
         parent.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = card.GetDescription();
         parent.GetChild(4).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = card.cost.ToString();
+    }
+
+    private void PopulateEquipment(Equipment equip, Transform parent) {
+        if (equip == null) {
+            parent.gameObject.SetActive(false);
+        } else {
+            parent.gameObject.SetActive(true);
+            parent.GetChild(0).GetComponent<Image>().sprite = equip.sprite;
+            parent.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = equip.description;
+        }
     }
 }

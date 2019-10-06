@@ -49,28 +49,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Loose(IPlayerManager player) {
+    public void Loose(IPlayerManager looser) {
         if (enemy == null)
             return;
-        if (this.player == (Object)player) {
+        if (player == (Object)looser) {
             enemy.EndCombat(true);
             enemy = null;
             player.EndCombat(false);
-        } else if (enemy == player) {
+        } else if (enemy == looser) {
             enemy.EndCombat(false);
             enemy = null;
             if (enemyHolder.childCount <= enemyIndex) {
                 winScreen.SetActive(true);
             } else {
-                this.player.EndCombat(true);
+                player.EndCombat(true);
             }
         }
     }
 
-    public IPlayerManager GetOtherPlayer(IPlayerManager player) {
-        if (this.player == (Object)player)
+    public IPlayerManager GetOtherPlayer(IPlayerManager curr) {
+        if (player == (Object)curr)
             return enemy;
         else
-            return this.player;
+            return player;
     }
 }
