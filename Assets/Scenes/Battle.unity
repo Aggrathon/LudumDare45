@@ -1932,6 +1932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1041905872}
+  enemyHolder: {fileID: 1295583567}
   groundTargets: {fileID: 1973523004}
 --- !u!4 &361047426
 Transform:
@@ -1945,6 +1946,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1041905871}
+  - {fileID: 1295583567}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4748,7 +4750,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1428ff0fc4cbc3044bdf78babfb9cb90, type: 2}
   - {fileID: 11400000, guid: 30a366a7e85b39948a3e15fdac9bf20a, type: 2}
   - {fileID: 11400000, guid: bd565964250c61240a2e63e92f800a00, type: 2}
-  units: []
 --- !u!4 &1041905871
 Transform:
   m_ObjectHideFlags: 0
@@ -5961,6 +5962,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1294840932}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1295583566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295583567}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1295583567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295583566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1830005674}
+  m_Father: {fileID: 361047426}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1336364970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8776,6 +8808,77 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1829991083}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1830005673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830005674}
+  - component: {fileID: 1830005676}
+  - component: {fileID: 1830005675}
+  m_Layer: 0
+  m_Name: EnemyTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1830005674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830005673}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1295583567}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1830005675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830005673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a77a5c2f56da940879a61f6fb123b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyGain: 1
+  cardGain: 1
+--- !u!114 &1830005676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830005673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61aa5914aa4a134692da9f40ec21eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  libraryText: {fileID: 0}
+  discardText: {fileID: 0}
+  energyText: {fileID: 0}
+  cardPrefab: {fileID: 0}
+  handTransform: {fileID: 0}
+  messageWindow: {fileID: 0}
+  spawnPositionLimit: {x: 10, y: 1, z: 1}
+  defaultHand:
+  - {fileID: 11400000, guid: bd565964250c61240a2e63e92f800a00, type: 2}
+  - {fileID: 11400000, guid: bd565964250c61240a2e63e92f800a00, type: 2}
+  - {fileID: 11400000, guid: bd565964250c61240a2e63e92f800a00, type: 2}
+  - {fileID: 11400000, guid: bd565964250c61240a2e63e92f800a00, type: 2}
+  - {fileID: 11400000, guid: bd565964250c61240a2e63e92f800a00, type: 2}
 --- !u!1001 &1835357682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9241,7 +9344,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 60}
-  m_SizeDelta: {x: 300, y: -280}
+  m_SizeDelta: {x: 400, y: -280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1923144933
 MonoBehaviour:

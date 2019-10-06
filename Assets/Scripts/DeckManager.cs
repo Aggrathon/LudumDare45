@@ -20,7 +20,7 @@ public class DeckManager : MonoBehaviour
     private List<BaseCard> deck;
     private List<BaseCard> discardPile;
     private List<BaseCard> drawPile;
-    public List<Unit> units;
+    [System.NonSerialized] public List<Unit> units;
 
     int _energy = 0;
     public int energy { get { return _energy; } set { _energy = value; if (energyText != null) energyText.text = _energy.ToString(); } }
@@ -34,18 +34,22 @@ public class DeckManager : MonoBehaviour
     }
 
     public void PrepareBattle(Board board) {
-        discardPile.Clear();
-        drawPile.Clear();
+        ClearBoard();
         drawPile.AddRange(deck);
         energy = 0;
-        foreach (var u in units)
-            Destroy(u);
-        units.Clear();
         if (libraryText != null)
             libraryText.text = drawPile.Count + " Cards";
         if (discardText != null)
             discardText.text = "0 Cards";
         this.board = board;
+    }
+
+    public void ClearBoard() {
+        discardPile.Clear();
+        drawPile.Clear();
+        foreach (var u in units)
+            Destroy(u);
+        units.Clear();
     }
 
     public void Discard(BaseCard card) {
@@ -114,6 +118,8 @@ public class DeckManager : MonoBehaviour
     public void Alert(string msg) {
         if (messageWindow != null)
             messageWindow.Alert(msg);
+        // else
+        //     Debug.Log("Enemy: "+msg);
     }
 
 }

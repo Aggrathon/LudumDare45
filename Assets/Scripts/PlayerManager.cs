@@ -63,6 +63,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         deckManager.interactable = false;
         endTurnButton?.SetActive(false);
         if (won) {
+            deckManager.ClearBoard();
             Upgrade();
         } else {
             gameOverScreen.SetActive(true);
@@ -71,6 +72,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 
     public void Upgrade() {
         //TODO: Upgrade
+        //TODO: Equipment
         gameManager.Next();
     }
 

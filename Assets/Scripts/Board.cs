@@ -40,6 +40,20 @@ public class Board : MonoBehaviour
         }
     }
 
+    public BoardTarget FindBest(Func<BoardTarget, float> loss) {
+        BoardTarget target = targets[0];
+        float best = loss(target);
+        for (int i = 1; i < targets.Count; i++)
+        {
+            float l = loss(targets[i]);
+            if (l < best) {
+                best = l;
+                target = targets[i];
+            }
+        }
+        return target;
+    }
+
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
             if (!EventSystem.current.IsPointerOverGameObject()) {
@@ -55,7 +69,7 @@ public class Board : MonoBehaviour
                                 moving.unit.Move(target);
                                 Unlight();
                             }
-                        } else if (target.unit) {
+                        } else if (target.unit?.team?.interactable == true) {
                             if (target.unit.hasMoved) {
                                 target.unit.team.Alert("Unit has already moved!");
                             } else {

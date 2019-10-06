@@ -87,13 +87,13 @@ public class CardUI : MonoBehaviour
                 manager.board.Highlight((_) => true);
                 break;
             case BaseCard.Target.Enemy:
-                manager.board.Highlight((BoardTarget b) => b?.unit?.team != manager);
+                manager.board.Highlight((BoardTarget b) => b.unit?.team != manager);
                 break;
             case BaseCard.Target.Friendly:
-                manager.board.Highlight((BoardTarget b) => b?.unit?.team == manager);
+                manager.board.Highlight((BoardTarget b) => b.unit?.team == manager);
                 break;
             case BaseCard.Target.Spawn:
-                manager.board.Highlight((BoardTarget b) => Utils.Vector3InBox(manager.transform.position, manager.spawnPositionLimit, b.transform.position));
+                manager.board.Highlight((BoardTarget b) => b.unit == null && Utils.Vector3InBox(manager.transform.position, manager.spawnPositionLimit, b.transform.position));
                 break;
         }
     }

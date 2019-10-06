@@ -49,7 +49,7 @@ MonoBehaviour:
   health: 2
   healthText: {fileID: 4809783811166783769}
   moveDist: 1.5
-  attackDist: 1
+  attackDist: 1.5
   damage: 1
 --- !u!1 &1596757713717698567
 GameObject:

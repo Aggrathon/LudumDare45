@@ -6,35 +6,53 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField] PlayerManager player;
+    [SerializeField] Transform enemyHolder;
     IPlayerManager enemy;
+    int enemyIndex;
+    bool playersTurn;
 
     public Board groundTargets;
 
     private void Start() {
-        player.StartCombat(this);
-        //TODO: Enemies
+        enemyIndex = 0;
+        enemy = null;
         Next();
     }
 
     public void Next() {
         groundTargets.Unlight();
         if (enemy == null) {
-            //TODO: Next story step
+            if (enemyHolder.childCount <= enemyIndex) {
+                Debug.LogWarning("Player Won");
+                //TODO: Win
+                return;
+            }
+            var en = enemyHolder.GetChild(enemyIndex);
+            en.gameObject.SetActive(true);
+            enemy = en.GetComponent<EnemyManager>();
+            enemyIndex++;
+            playersTurn = false;
+            enemy.StartCombat(this);
+            player.StartCombat(this);
         }
-        //TODO: Implement next
-        player?.StartTurn();
-        enemy?.StartTurn();
+        if (playersTurn) {
+            playersTurn = false;
+            player?.StartTurn();
+        } else {
+            playersTurn = true;
+            enemy?.StartTurn();
+        }
     }
 
     public void Loose(IPlayerManager player) {
         if (this.player == (Object)player) {
             enemy.EndCombat(true);
-            player.EndCombat(false);
             enemy = null;
+            player.EndCombat(false);
         } else if (enemy == player) {
             enemy.EndCombat(false);
-            player.EndCombat(true);
             enemy = null;
+            player.EndCombat(true);
         }
     }
 }

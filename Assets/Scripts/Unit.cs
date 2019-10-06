@@ -55,16 +55,22 @@ public class Unit : MonoBehaviour
         if (target == null) {
             return false;
         }
+        if (!team.interactable) {
+            team.Alert("Not your unit or not your turn!");
+            return false;
+        }
         var sqrDist = (target.transform.localPosition - location.transform.localPosition).sqrMagnitude;
         if (target.unit != null) {
             if (target.unit.team == team) {
                 team.Alert("Space already occupied!");
                 return false;
-            } else if (sqrDist < attackDist * attackDist) {
+            } else if (sqrDist <= attackDist * attackDist) {
                 hasMoved = true;
                 //TODO: Attack FX
-                if (target.unit.Damage(damage) && sqrDist < moveDist * moveDist) {
+                if (target.unit.Damage(damage) && sqrDist <= moveDist * moveDist) {
                     StartCoroutine(Utils.LerpMoveTo(transform, target.transform.position));
+                    if (location.unit == this)
+                        location.unit = null;
                     target.unit = this;
                     location = target;
                     return true;
@@ -75,7 +81,7 @@ public class Unit : MonoBehaviour
                 team.Alert("Target is too far away!");
                 return false;
             }
-        } else if (sqrDist < moveDist * moveDist) {
+        } else if (sqrDist <= moveDist * moveDist) {
             hasMoved = true;
             StartCoroutine(Utils.LerpMoveTo(transform, target.transform.position));
             target.unit = this;
