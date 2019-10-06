@@ -7,10 +7,12 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 {
     
     DeckManager deckManager;
+    public DeckManager deck { get => deckManager; }
 
     [SerializeField] GameObject endTurnButton;
     [SerializeField] TMPro.TextMeshProUGUI healthText;
     [SerializeField] GameObject gameOverScreen;
+    [SerializeField] Upgrades upgrades;
     [SerializeField] Vector3 vulnerableZone = new Vector3(3, 1, 1);
 
     GameManager gameManager;
@@ -65,16 +67,13 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         endTurnButton?.SetActive(false);
         if (won) {
             deckManager.ClearBoard();
-            Upgrade();
+            upgrades.Show();
         } else {
             gameOverScreen.SetActive(true);
         }
     }
 
-    public void Upgrade() {
-        //TODO: Upgrade
-        //TODO: Equipment
-        Debug.LogWarning("Upgrading not implemented");
+    public void Upgraded() {
         gameManager.NextCombat();
     }
 

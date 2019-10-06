@@ -51,7 +51,7 @@ public class DeckManager : MonoBehaviour
         _discardPile.Clear();
         _drawPile.Clear();
         foreach (var u in units)
-            Destroy(u);
+            Destroy(u.gameObject);
         units.Clear();
     }
 

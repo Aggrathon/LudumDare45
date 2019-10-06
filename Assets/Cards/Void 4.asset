@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb99f2520557114a84386ee2ad301e3, type: 3}
-  m_Name: Void 1
+  m_Script: {fileID: 11500000, guid: bcc5a3dc9706e5f4e8c8728ba95de22a, type: 3}
+  m_Name: Void 4
   m_EditorClassIdentifier: 
-  cardName: Void
-  cost: 0
+  cardName: Consuming Void
+  cost: 2
   sprite: {fileID: 21300000, guid: 5b274f408b7153248a5a82bfeb572d55, type: 3}
-  color: {r: 0.38694894, g: 0.139194, b: 0.41799998, a: 0.9019608}
-  target: 3
-  upgrades:
-  - {fileID: 11400000, guid: 7826719d527dd534788c761ede58eae7, type: 2}
+  color: {r: 0.3882353, g: 0.13725491, b: 0.41960785, a: 0.9019608}
+  target: 0
+  upgrades: []
   damage: 1
+  radius: 1.5

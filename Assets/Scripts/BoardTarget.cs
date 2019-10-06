@@ -9,11 +9,12 @@ public class BoardTarget : MonoBehaviour
     [NonSerialized] public Unit unit;
     MeshRenderer highlight;
 
-    Board board;
+    Board _board;
+    public Board board { get => _board; } 
 
     private void Start() {
-        board = transform.parent.GetComponent<Board>();
-        board.targets.Add(this);
+        _board = transform.parent.GetComponent<Board>();
+        _board.targets.Add(this);
         highlight = GetComponent<MeshRenderer>();
         highlight.enabled = false;
     }
