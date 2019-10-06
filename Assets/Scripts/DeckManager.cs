@@ -127,4 +127,9 @@ public class DeckManager : MonoBehaviour
         #endif
     }
 
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, spawnPositionLimit * 2);
+    }
+
 }

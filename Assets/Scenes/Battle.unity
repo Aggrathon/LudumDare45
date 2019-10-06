@@ -4744,7 +4744,7 @@ MonoBehaviour:
     type: 3}
   handTransform: {fileID: 132016503}
   messageWindow: {fileID: 1923144933}
-  spawnPositionLimit: {x: 10, y: 1, z: 1}
+  spawnPositionLimit: {x: 10, y: 1, z: 3.5}
   defaultHand:
   - {fileID: 11400000, guid: 1428ff0fc4cbc3044bdf78babfb9cb90, type: 2}
   - {fileID: 11400000, guid: 30a366a7e85b39948a3e15fdac9bf20a, type: 2}
@@ -4759,7 +4759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041905869}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.64}
+  m_LocalPosition: {x: 0, y: 0, z: -8.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 361047426}
@@ -4780,7 +4780,7 @@ MonoBehaviour:
   endTurnButton: {fileID: 334435222}
   healthText: {fileID: 1022084045}
   gameOverScreen: {fileID: 1970873652}
-  vulnerableZone: {x: 3, y: 1, z: 1}
+  vulnerableZone: {x: 3.5, y: 1, z: 3.5}
   energyGain: 1
   cardGain: 2
   health: 10

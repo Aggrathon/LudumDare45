@@ -33,16 +33,23 @@ public static class Utils
 
     public static IEnumerator LerpMoveTo(Transform mover, Vector3 position, float time=0.5f) {
         Vector3 vel = Vector3.zero;
-        while ((mover.position - position).sqrMagnitude > 0.01f) {
+        while ((mover.position - position).sqrMagnitude > 0.03f) {
             mover.position = Vector3.SmoothDamp(mover.position, position, ref vel, time);
             yield return null;
         }
         mover.position = position;
+        Debug.Log("stop move");
+        yield break;
     }
 
     public static bool Vector3InBox(Vector3 center, Vector3 limits, Vector3 other) {
         var diff = (center - other);
         diff = Vector3.Scale(diff, diff) - Vector3.Scale(limits, limits);
         return diff.x <= 0 & diff.y <= 0 & diff.z <= 0;
+    }
+
+    public static IEnumerator ExecuteNextFrame(System.Action act) {
+        yield return null;
+        act();
     }
 }

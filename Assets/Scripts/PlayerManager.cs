@@ -61,6 +61,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     }
 
     public void EndCombat(bool won) {
+        StopAllCoroutines();
         deckManager.interactable = false;
         endTurnButton?.SetActive(false);
         if (won) {
@@ -95,8 +96,13 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         healthText.text = string.Format("{0}<color=black><size=20>\n{1}</size></color>", health, maxHealth);
     }
 
-    public bool IsVulnerable(BoardTarget pos)
+    public Vector3 GetPosition()
     {
-        return Utils.Vector3InBox(transform.position, vulnerableZone, pos.transform.position);
+        return transform.position;
+    }
+    
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, vulnerableZone * 2);
     }
 }

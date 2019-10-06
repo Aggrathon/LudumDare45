@@ -6,5 +6,6 @@ public interface IPlayerManager
     void StartTurn();
     void EndTurn();
     void EndCombat(bool won);
-    bool IsVulnerable(BoardTarget pos);
+    Vector3 GetPosition();
+    void Damage(int damage);
 }

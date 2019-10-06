@@ -40,13 +40,13 @@ public class Board : MonoBehaviour
         }
     }
 
-    public BoardTarget FindBest(Func<BoardTarget, float> loss) {
-        BoardTarget target = targets[0];
-        float best = loss(target);
-        for (int i = 1; i < targets.Count; i++)
+    public BoardTarget FindBest(Func<BoardTarget, (float, bool)> loss) {
+        BoardTarget target = null;
+        float best = float.MaxValue;
+        for (int i = 0; i < targets.Count; i++)
         {
-            float l = loss(targets[i]);
-            if (l < best) {
+            var (l, f) = loss(targets[i]);
+            if (f && l < best) {
                 best = l;
                 target = targets[i];
             }

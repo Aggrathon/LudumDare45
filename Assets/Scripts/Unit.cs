@@ -69,6 +69,7 @@ public class Unit : MonoBehaviour
                 hasMoved = true;
                 //TODO: Attack FX
                 if (target.unit.Damage(damage) && sqrDist <= moveDist * moveDist) {
+                    StopAllCoroutines();
                     StartCoroutine(Utils.LerpMoveTo(transform, target.transform.position));
                     if (location.unit == this)
                         location.unit = null;
@@ -84,6 +85,7 @@ public class Unit : MonoBehaviour
             }
         } else if (sqrDist <= moveDist * moveDist) {
             hasMoved = true;
+            StopAllCoroutines();
             StartCoroutine(Utils.LerpMoveTo(transform, target.transform.position));
             target.unit = this;
             if (location.unit == this)

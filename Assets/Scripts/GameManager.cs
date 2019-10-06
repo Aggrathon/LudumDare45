@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void Loose(IPlayerManager player) {
+        if (enemy == null)
+            return;
         if (this.player == (Object)player) {
             enemy.EndCombat(true);
             enemy = null;
@@ -64,6 +66,6 @@ public class GameManager : MonoBehaviour
         if (this.player == (Object)player)
             return enemy;
         else
-            return player;
+            return this.player;
     }
 }
