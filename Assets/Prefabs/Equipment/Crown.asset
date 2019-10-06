@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e0eaa66d3d0d204f8cd7974d8e94759, type: 3}
-  m_Name: Notebook
+  m_Name: Crown
   m_EditorClassIdentifier: 
-  sprite: {fileID: -690538994573663424, guid: e2f528f7057c74e45a9d02968da15e6a, type: 3}
-  description: An additional upgrade after each combat
-  rarity: 1
-  type: 2
+  sprite: {fileID: -7166371706973388817, guid: e2f528f7057c74e45a9d02968da15e6a, type: 3}
+  description: Gain an additional energy each turn
+  rarity: 2
+  type: 0
   effects:
-  - when: 2
-    energy: 0
+  - when: 1
+    energy: 1
     cards: 0
-    upgrades: 1
+    upgrades: 0
     health: 0
     card: {fileID: 0}

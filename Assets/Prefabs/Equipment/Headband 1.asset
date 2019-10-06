@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -512751209419175549, guid: e2f528f7057c74e45a9d02968da15e6a, type: 3}
   description: Start each combat with an additional energy
-  rarity: 1
+  rarity: 0
   type: 0
   effects:
   - when: 0
@@ -22,3 +22,4 @@ MonoBehaviour:
     cards: 0
     upgrades: 0
     health: 0
+    card: {fileID: 0}

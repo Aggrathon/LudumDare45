@@ -35,6 +35,12 @@ TextureImporter:
   - first:
       213: -3920132243780884839
     second: Pole
+  - first:
+      213: -5343897376169499932
+    second: backpack
+  - first:
+      213: -3203779722032322926
+    second: Crown
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -385,7 +391,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -393,6 +399,48 @@ TextureImporter:
       bones: []
       spriteID: 5a7891c42e987c94a9ed792279149841
       internalID: -3920132243780884839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: backpack
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3839f5ee9c6c544b3c79663a27e820
+      internalID: -5343897376169499932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crown
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4acc8582d1b33d94398bbca8a6150340
+      internalID: -3203779722032322926
       vertices: []
       indices: 
       edges: []

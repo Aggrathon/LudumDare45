@@ -24,7 +24,7 @@ public class MeleeCard : BaseCard
             manager.Alert("Target is friendly!");
             return false;
         }
-        if ((target.transform.localPosition - target.transform.parent.InverseTransformPoint(manager.transform.position)).sqrMagnitude > 1.5f) {
+        if ((target.transform.localPosition - target.transform.parent.InverseTransformPoint(manager.transform.position)).sqrMagnitude > 1.6f) {
             manager.Alert("Target is too far away!");
             return false;
         }
