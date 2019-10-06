@@ -38,7 +38,6 @@ public static class Utils
             yield return null;
         }
         mover.position = position;
-        Debug.Log("stop move");
         yield break;
     }
 

@@ -77,8 +77,8 @@ public class Board : MonoBehaviour
                             } else {
                                 Highlight((BoardTarget b) => {
                                     var sqrDist = (b.transform.localPosition - target.transform.localPosition).sqrMagnitude;
-                                    return (b.unit == null && sqrDist < target.unit.moveDist * target.unit.moveDist)
-                                        || (b.unit != null && b.unit.team != target.unit.team && sqrDist < target.unit.attackDist * target.unit.attackDist);
+                                    return (b.unit == null && sqrDist <= target.unit.moveDist * target.unit.moveDist)
+                                        || (b.unit != null && b.unit.team != target.unit.team && sqrDist <= target.unit.attackDist * target.unit.attackDist);
                                 });
                                 moving = target;
                             }

@@ -40,13 +40,11 @@ public class GameManager : MonoBehaviour
                 winScreen.SetActive(true);
                 return;
             }
-            var en = enemyHolder.GetChild(enemyIndex);
-            en.gameObject.SetActive(true);
-            enemy = en.GetComponent<EnemyManager>();
-            enemyIndex++;
-            playersTurn = false;
-            enemy.StartCombat(this);
             player.StartCombat(this);
+            enemy = enemyHolder.GetChild(enemyIndex).GetComponent<EnemyManager>();
+            enemyIndex++;
+            enemy.StartCombat(this);
+            playersTurn = false;
             NextTurn();
         }
     }
