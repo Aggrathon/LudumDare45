@@ -52,4 +52,9 @@ public static class Utils
         yield return null;
         act();
     }
+
+    public static IEnumerator ExecuteLater(System.Action act, float time) {
+        yield return new WaitForSeconds(time);
+        act();
+    }
 }

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private void Start() {
         enemyIndex = 0;
         enemy = null;
-        Next();
+        StartCoroutine(Utils.ExecuteLater(Next, 1.5f));
     }
 
     public void Next() {
