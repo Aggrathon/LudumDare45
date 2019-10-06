@@ -57,11 +57,10 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     public void EndTurn() {
         deckManager.interactable = false;
         endTurnButton?.SetActive(false);
-        gameManager.Next();
+        gameManager.NextTurn();
     }
 
     public void EndCombat(bool won) {
-        StopAllCoroutines();
         deckManager.interactable = false;
         endTurnButton?.SetActive(false);
         if (won) {
@@ -76,7 +75,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         //TODO: Upgrade
         //TODO: Equipment
         Debug.LogWarning("Upgrading not implemented");
-        gameManager.Next();
+        gameManager.NextCombat();
     }
 
     public void Damage(int amount) {

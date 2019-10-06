@@ -70,6 +70,8 @@ public class Board : MonoBehaviour
                                 Unlight();
                             }
                         } else if (target.unit?.team?.interactable == true) {
+                            if (target.unit.moveDist < 1f && target.unit.attackDist < 1f)
+                                return;
                             if (target.unit.hasMoved) {
                                 target.unit.team.Alert("Unit has already moved!");
                             } else {

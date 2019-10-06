@@ -17,10 +17,23 @@ public class GameManager : MonoBehaviour
     private void Start() {
         enemyIndex = 0;
         enemy = null;
-        StartCoroutine(Utils.ExecuteLater(Next, 1.5f));
+        StartCoroutine(Utils.ExecuteLater(NextCombat, 2.5f));
     }
 
-    public void Next() {
+    public void NextTurn() {
+        groundTargets.Unlight();
+        if (enemy == null) {
+            return;
+        } else if (playersTurn) {
+            playersTurn = false;
+            player.StartTurn();
+        } else {
+            playersTurn = true;
+            enemy.StartTurn();
+        }
+    }
+
+    public void NextCombat() {
         groundTargets.Unlight();
         if (enemy == null) {
             if (enemyHolder.childCount <= enemyIndex) {
@@ -34,13 +47,7 @@ public class GameManager : MonoBehaviour
             playersTurn = false;
             enemy.StartCombat(this);
             player.StartCombat(this);
-        }
-        if (playersTurn) {
-            playersTurn = false;
-            player?.StartTurn();
-        } else {
-            playersTurn = true;
-            enemy?.StartTurn();
+            NextTurn();
         }
     }
 
@@ -56,8 +63,8 @@ public class GameManager : MonoBehaviour
             enemy = null;
             if (enemyHolder.childCount <= enemyIndex) {
                 winScreen.SetActive(true);
-            } else  {
-                player.EndCombat(true);
+            } else {
+                this.player.EndCombat(true);
             }
         }
     }

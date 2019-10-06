@@ -87,7 +87,7 @@ public class CardUI : MonoBehaviour
                 manager.board.Highlight((_) => true);
                 break;
             case BaseCard.Target.Enemy:
-                manager.board.Highlight((BoardTarget b) => b.unit?.team != manager);
+                manager.board.Highlight((BoardTarget b) => b.unit != null && b.unit.team != manager);
                 break;
             case BaseCard.Target.Friendly:
                 manager.board.Highlight((BoardTarget b) => b.unit?.team == manager);

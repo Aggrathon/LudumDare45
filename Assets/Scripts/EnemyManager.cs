@@ -24,7 +24,6 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
     }
 
     public void StartTurn() {
-        StartCoroutine(Utils.ExecuteNextFrame(EndTurn));
         deckManager.energy += energyGain;
         for (int i = 0; i < cardGain; i++)
             deck.Add(deckManager.Draw());
@@ -110,6 +109,7 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
                 unit.hasMoved = false;
             }
         }
+        EndTurn();
     }
 
     public void EndTurn() {
@@ -125,12 +125,11 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
             return;
         }
         Out:
-        gameManager.Next();
+        gameManager.NextTurn();
     }
 
     public void EndCombat(bool won) {
         deckManager.interactable = false;
-        StopAllCoroutines();
         if (!won) {
             deckManager.ClearBoard();
             gameObject.SetActive(false);

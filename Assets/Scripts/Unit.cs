@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour
     [SerializeField] int health = 2;
     int maxHealth;
     [SerializeField] TMPro.TextMeshPro healthText;
+    [SerializeField] MeshRenderer spriteRenderer;
+    [SerializeField] Texture2D spriteTexture;
 
     [NonSerialized] public bool hasMoved;
     public float moveDist = 1f;
@@ -30,6 +32,11 @@ public class Unit : MonoBehaviour
         location.unit = this;
         team.units.Add(this);
         hasMoved = true;
+        
+        var mpb = new MaterialPropertyBlock();
+        spriteRenderer.GetPropertyBlock(mpb);
+        mpb.SetTexture("_BaseMap", spriteTexture);
+        spriteRenderer.SetPropertyBlock(mpb);
     }
 
     public bool Damage(int amount) {
