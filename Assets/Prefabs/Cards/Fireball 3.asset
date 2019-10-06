@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcc5a3dc9706e5f4e8c8728ba95de22a, type: 3}
-  m_Name: Void 4
+  m_Name: Fireball 3
   m_EditorClassIdentifier: 
-  cardName: Consuming Void
+  cardName: Fireball
   cost: 2
-  sprite: {fileID: 21300000, guid: 5b274f408b7153248a5a82bfeb572d55, type: 3}
-  color: {r: 0.3882353, g: 0.13725491, b: 0.41960785, a: 0.9019608}
+  sprite: {fileID: 7705195508440195353, guid: 4eb1f6c3e100a4743aa5c9ffff91c232, type: 3}
+  color: {r: 1, g: 0.36205646, b: 0.020999968, a: 0.9019608}
   target: 0
-  upgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 5c7e8e69be48b2e499337ec3d062826e, type: 2}
   damage: 1
   radius: 1.5

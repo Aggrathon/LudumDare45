@@ -9,7 +9,7 @@ public class MissileAreaCard : BaseCard
     public float radius = 1.5f;
 
     public override string GetDescription() {
-        return string.Format("Deal {0} damage in an area with radius {1:.1f}", damage, radius);
+        return string.Format("Deal {0} damage in an area with radius {1:0.0}", damage, radius);
     }
 
     public override bool Cast(BoardTarget target, DeckManager manager) {

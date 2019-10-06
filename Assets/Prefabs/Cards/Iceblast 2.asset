@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb99f2520557114a84386ee2ad301e3, type: 3}
-  m_Name: Void 3
+  m_Name: Iceblast 2
   m_EditorClassIdentifier: 
-  cardName: Void
-  cost: 2
-  sprite: {fileID: 21300000, guid: 5b274f408b7153248a5a82bfeb572d55, type: 3}
-  color: {r: 0.38694894, g: 0.139194, b: 0.41799998, a: 0.9019608}
+  cardName: Iceblast
+  cost: 1
+  sprite: {fileID: 4920806097375827955, guid: 4eb1f6c3e100a4743aa5c9ffff91c232, type: 3}
+  color: {r: 0.4669811, g: 0.83121073, b: 1, a: 0.9019608}
   target: 3
-  upgrades: []
-  damage: 3
+  upgrades:
+  - {fileID: 11400000, guid: 0bff7d62a80d79840bbaf2896961e09b, type: 2}
+  damage: 2

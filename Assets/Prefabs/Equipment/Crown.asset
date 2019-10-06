@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0eaa66d3d0d204f8cd7974d8e94759, type: 3}
   m_Name: Crown
   m_EditorClassIdentifier: 
-  sprite: {fileID: -7166371706973388817, guid: e2f528f7057c74e45a9d02968da15e6a, type: 3}
+  sprite: {fileID: -3203779722032322926, guid: e2f528f7057c74e45a9d02968da15e6a, type: 3}
   description: Gain an additional energy each turn
   rarity: 2
   type: 0

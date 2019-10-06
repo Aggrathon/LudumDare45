@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb99f2520557114a84386ee2ad301e3, type: 3}
-  m_Name: Void 1
+  m_Name: Heal 1
   m_EditorClassIdentifier: 
-  cardName: Void
-  cost: 0
-  sprite: {fileID: 21300000, guid: 5b274f408b7153248a5a82bfeb572d55, type: 3}
-  color: {r: 0.38694894, g: 0.139194, b: 0.41799998, a: 0.9019608}
-  target: 3
-  upgrades: []
-  damage: 1
+  cardName: Heal
+  cost: 1
+  sprite: {fileID: -6457333693354711728, guid: 4eb1f6c3e100a4743aa5c9ffff91c232, type: 3}
+  color: {r: 0.355, g: 0.13061322, b: 0.030141518, a: 1}
+  target: 2
+  upgrades:
+  - {fileID: 11400000, guid: bb4a548eb207a094eaed4c8938b71302, type: 2}
+  damage: -4

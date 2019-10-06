@@ -1418,6 +1418,10 @@ MonoBehaviour:
   player: {fileID: 1041905872}
   baseCards:
   - {fileID: 11400000, guid: 30a366a7e85b39948a3e15fdac9bf20a, type: 2}
+  - {fileID: 11400000, guid: f3be8b5ca840a5c4b82570d212543cb4, type: 2}
+  - {fileID: 11400000, guid: d65f38e000917b744800cf433d002460, type: 2}
+  - {fileID: 11400000, guid: 9aa26b19c442145499090adbb198b11a, type: 2}
+  - {fileID: 11400000, guid: c237104fd5d9ae242820cfdc17ee25a7, type: 2}
   equipment:
   - {fileID: 11400000, guid: 8491390460cfa994ba4481fe616a84a2, type: 2}
   - {fileID: 11400000, guid: 70e744a6f6823b24e8fa9f6b5fc357ab, type: 2}

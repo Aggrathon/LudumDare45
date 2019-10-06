@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName="Cards/MissileCard")]
-public class MissileCard : BaseCard
+[CreateAssetMenu(menuName="Cards/SlowMissileCard")]
+public class SlowMissileCard : BaseCard
 {
     public int damage;
 
     public override string GetDescription() {
-        if (damage < 0)
-            return "Heal a summoned creature";
-        return "Deal " + damage + " damage";
+        return "Deal " + damage + " damage and slow down their movement";
     }
 
     public override bool Cast(BoardTarget target, DeckManager manager) {
@@ -22,14 +20,11 @@ public class MissileCard : BaseCard
             manager.Alert("Invalid target!");
             return false;
         } else {
-            if (damage > 0 && target.unit.team == manager) {
+            if (target.unit.team == manager) {
                 manager.Alert("Target is friendly!");
                 return false;
             }
-            if (damage < 0 && target.unit.team != manager) {
-                manager.Alert("Target is not friendly!");
-                return false;
-            }
+            target.unit.moveDist = Mathf.Max(1.1f, target.unit.moveDist * 0.6f);
             if (damage < 0)
                 target.unit.Heal(-damage);
             else

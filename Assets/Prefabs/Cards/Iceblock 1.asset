@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edecd9d199b4a2e4e821c3409b984343, type: 3}
-  m_Name: Wolf
+  m_Name: Iceblock 1
   m_EditorClassIdentifier: 
-  cardName: Wolf
+  cardName: Iceblock
   cost: 2
-  sprite: {fileID: 21300000, guid: b823a153a504d0b4d9c6705b7f39257e, type: 3}
-  color: {r: 0.35686275, g: 0.12941177, b: 0.03137255, a: 0.9490196}
-  target: 4
-  upgrades: []
-  unit: {fileID: 1477710012181957196, guid: 80115d2f6dbccd64ab3fb55e89c29df7, type: 3}
+  sprite: {fileID: -3017478855069605776, guid: 4eb1f6c3e100a4743aa5c9ffff91c232, type: 3}
+  color: {r: 0.46666667, g: 0.83137256, b: 1, a: 0.9490196}
+  target: 1
+  upgrades:
+  - {fileID: 11400000, guid: 1c134710d2c74614788b44463dfab196, type: 2}
+  unit: {fileID: 2256232930156388882, guid: a3e4e8a5b8cd2714b91d5e48d89a24e4, type: 3}

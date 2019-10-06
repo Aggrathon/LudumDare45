@@ -10,7 +10,7 @@ public class DeckManager : MonoBehaviour
     [SerializeField] protected TMPro.TextMeshProUGUI energyText;
 
     [SerializeField] protected Transform cardPrefab;
-    [SerializeField] protected Transform handTransform;
+    [SerializeField] internal Transform handTransform;
     [SerializeField] protected MessageWindow messageWindow;
 
     [System.NonSerialized] public Board board;

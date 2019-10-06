@@ -87,5 +87,15 @@ PrefabInstance:
       propertyPath: spriteTexture
       value: 
       objectReference: {fileID: 2800000, guid: cb9cc6c51e0dbef47966acb0aa2dca08, type: 3}
+    - target: {fileID: 8244250563918994247, guid: 1689f6969a67c9443bbe5beaa37569a1,
+        type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8244250563918994247, guid: 1689f6969a67c9443bbe5beaa37569a1,
+        type: 3}
+      propertyPath: attackDist
+      value: 2.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1689f6969a67c9443bbe5beaa37569a1, type: 3}

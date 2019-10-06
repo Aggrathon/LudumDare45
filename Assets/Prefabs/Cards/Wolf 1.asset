@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edecd9d199b4a2e4e821c3409b984343, type: 3}
-  m_Name: Wolf
+  m_Name: Wolf 1
   m_EditorClassIdentifier: 
   cardName: Wolf
-  cost: 2
+  cost: 3
   sprite: {fileID: 21300000, guid: b823a153a504d0b4d9c6705b7f39257e, type: 3}
   color: {r: 0.35686275, g: 0.12941177, b: 0.03137255, a: 0.9490196}
   target: 4
