@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] PlayerManager player;
     [SerializeField] Transform enemyHolder;
+    [SerializeField] GameObject winScreen;
     IPlayerManager enemy;
     int enemyIndex;
     bool playersTurn;
@@ -23,8 +24,7 @@ public class GameManager : MonoBehaviour
         groundTargets.Unlight();
         if (enemy == null) {
             if (enemyHolder.childCount <= enemyIndex) {
-                Debug.LogWarning("Player Won");
-                //TODO: Win
+                winScreen.SetActive(true);
                 return;
             }
             var en = enemyHolder.GetChild(enemyIndex);
@@ -52,7 +52,18 @@ public class GameManager : MonoBehaviour
         } else if (enemy == player) {
             enemy.EndCombat(false);
             enemy = null;
-            player.EndCombat(true);
+            if (enemyHolder.childCount <= enemyIndex) {
+                winScreen.SetActive(true);
+            } else  {
+                player.EndCombat(true);
+            }
         }
+    }
+
+    public IPlayerManager GetOtherPlayer(IPlayerManager player) {
+        if (this.player == (Object)player)
+            return enemy;
+        else
+            return player;
     }
 }

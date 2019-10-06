@@ -17,9 +17,12 @@ public class DeckManager : MonoBehaviour
     public Vector3 spawnPositionLimit = new Vector3(10f, 1f, 1f);
 
     [SerializeField] protected List<BaseCard> defaultHand;
-    private List<BaseCard> deck;
-    private List<BaseCard> discardPile;
-    private List<BaseCard> drawPile;
+    private List<BaseCard> _deck;
+    public List<BaseCard> deck { get => _deck; }
+    private List<BaseCard> _discardPile;
+    public List<BaseCard> discardPile { get => _discardPile; }
+    private List<BaseCard> _drawPile;
+    public List<BaseCard> drawPile { get => _drawPile; }
     [System.NonSerialized] public List<Unit> units;
 
     int _energy = 0;
@@ -27,15 +30,15 @@ public class DeckManager : MonoBehaviour
     [System.NonSerialized] public bool interactable = false;
 
     private void Awake() {
-        deck = new List<BaseCard>(defaultHand);
-        discardPile = new List<BaseCard>();
-        drawPile = new List<BaseCard>();
+        _deck = new List<BaseCard>(defaultHand);
+        _discardPile = new List<BaseCard>();
+        _drawPile = new List<BaseCard>();
         units = new List<Unit>();
     }
 
     public void PrepareBattle(Board board) {
         ClearBoard();
-        drawPile.AddRange(deck);
+        drawPile.AddRange(_deck);
         energy = 0;
         if (libraryText != null)
             libraryText.text = drawPile.Count + " Cards";
@@ -45,7 +48,7 @@ public class DeckManager : MonoBehaviour
     }
 
     public void ClearBoard() {
-        discardPile.Clear();
+        _discardPile.Clear();
         drawPile.Clear();
         foreach (var u in units)
             Destroy(u);
@@ -53,14 +56,14 @@ public class DeckManager : MonoBehaviour
     }
 
     public void Discard(BaseCard card) {
-        discardPile.Add(card);
+        _discardPile.Add(card);
         if (discardText != null)
-            discardText.text = discardPile.Count + " Cards";
+            discardText.text = _discardPile.Count + " Cards";
     }
 
     public void Shuffle() {
-        drawPile.AddRange(discardPile);
-        discardPile.Clear();
+        drawPile.AddRange(_discardPile);
+        _discardPile.Clear();
         Utils.ShuffleList(drawPile);
         if (discardText != null)
             discardText.text = "0 Cards";
@@ -108,18 +111,20 @@ public class DeckManager : MonoBehaviour
     }
 
     public void AddToDeck(BaseCard card) {
-        deck.Add(card);
+        _deck.Add(card);
     }
 
     public bool RemoveFromDeck(BaseCard card) {
-        return deck.Remove(card);
+        return _deck.Remove(card);
     }
 
     public void Alert(string msg) {
         if (messageWindow != null)
             messageWindow.Alert(msg);
-        // else
-        //     Debug.Log("Enemy: "+msg);
+        #if UNITY_EDITOR
+        else
+            Debug.Log("Enemy: "+msg);
+        #endif
     }
 
 }

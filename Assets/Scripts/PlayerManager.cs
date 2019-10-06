@@ -8,9 +8,10 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     
     DeckManager deckManager;
 
-    [SerializeField] protected GameObject endTurnButton;
-    [SerializeField] protected TMPro.TextMeshProUGUI healthText;
-    [SerializeField] protected GameObject gameOverScreen;
+    [SerializeField] GameObject endTurnButton;
+    [SerializeField] TMPro.TextMeshProUGUI healthText;
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] Vector3 vulnerableZone = new Vector3(3, 1, 1);
 
     GameManager gameManager;
 
@@ -73,6 +74,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
     public void Upgrade() {
         //TODO: Upgrade
         //TODO: Equipment
+        Debug.LogWarning("Upgrading not implemented");
         gameManager.Next();
     }
 
@@ -91,5 +93,10 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
             health = maxHealth;
         }
         healthText.text = string.Format("{0}<color=black><size=20>\n{1}</size></color>", health, maxHealth);
+    }
+
+    public bool IsVulnerable(BoardTarget pos)
+    {
+        return Utils.Vector3InBox(transform.position, vulnerableZone, pos.transform.position);
     }
 }

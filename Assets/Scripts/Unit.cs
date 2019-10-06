@@ -29,6 +29,7 @@ public class Unit : MonoBehaviour
         location = target;
         location.unit = this;
         team.units.Add(this);
+        hasMoved = true;
     }
 
     public bool Damage(int amount) {

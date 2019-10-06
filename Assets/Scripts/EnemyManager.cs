@@ -73,6 +73,17 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
 
     public void EndTurn() {
         deckManager.interactable = false;
+        if (deckManager.units.Count == 0) {
+            for (int i = 0; i < deck.Count; i++)
+                if (deck[i]?.target == BaseCard.Target.Spawn)
+                    goto Out;
+            for (int i = 0; i < deckManager.drawPile.Count; i++)
+                if (deckManager.drawPile[i]?.target == BaseCard.Target.Spawn)
+                    goto Out;
+            gameManager.Loose(this);
+            return;
+        }
+        Out:
         gameManager.Next();
     }
 
@@ -82,5 +93,9 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
             deckManager.ClearBoard();
     }
 
+    public bool IsVulnerable(BoardTarget pos)
+    {
+        return false;
+    }
 
 }
