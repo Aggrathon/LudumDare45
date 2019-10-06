@@ -12,6 +12,10 @@ public class SpawnCard : BaseCard
     }
 
     public override bool Cast(BoardTarget target, DeckManager manager) {
+        if (manager.energy < cost) {
+            manager.Alert("Not enough energy!");
+            return false;
+        }
         if (target == null) {
             manager.Alert("Must target the board!");
             return false;
@@ -24,6 +28,7 @@ public class SpawnCard : BaseCard
                 manager.Alert("Can only be spawned on the homerow!");
                 return false;
             }
+            manager.energy -= cost;
             Instantiate(unit, target.transform.position, Quaternion.identity).Setup(manager, target);
             return true;
         }

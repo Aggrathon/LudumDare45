@@ -12,6 +12,10 @@ public class MissileCard : BaseCard
     }
 
     public override bool Cast(BoardTarget target, DeckManager manager) {
+        if (manager.energy < cost) {
+            manager.Alert("Not enough energy!");
+            return false;
+        }
         if (target == null || target.unit == null) {
             manager.Alert("Invalid target!");
             return false;
@@ -25,6 +29,7 @@ public class MissileCard : BaseCard
             else
                 target.unit.Damage(damage);
             manager.Discard(this);
+            manager.energy -= cost;
             return true;
         }
     }

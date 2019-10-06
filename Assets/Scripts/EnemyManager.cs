@@ -28,11 +28,10 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
         for (int i = 0; i < cardGain; i++)
             deck.Add(deckManager.Draw());
         deckManager.interactable = true;
-        for (int i = 0; i < deck.Count; i++)
+        for (int i = deck.Count - 1; i >= 0; i--)
         {
             if (deck[i] == null) {
                 deck.RemoveAt(i);
-                i--;
                 continue;
             }
             if (deckManager.energy >= deck[i].cost) {
@@ -64,7 +63,7 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
                         });
                         break;
                 }
-                //Debug.Log("Enemy cast: " + bt + " " + deck[i].cardName);
+                // Debug.Log("Enemy cast: " + bt + " " + deck[i].cardName);
                 if (deck[i].target == BaseCard.Target.Global || bt != null)
                     if (deck[i].Cast(bt, deckManager))
                         deck.RemoveAt(i);
