@@ -85,6 +85,7 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
             }
             if ((oppos - upos).sqrMagnitude <= unit.attackDist * unit.attackDist) {
                 otherPlayer.Damage(unit.damage);
+                unit.AttackFX(otherPlayer.GetPosition());
                 continue;
             }
             var bt = gameManager.groundTargets.FindBest((BoardTarget b) => {

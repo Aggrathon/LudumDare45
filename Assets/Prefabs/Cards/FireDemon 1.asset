@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireDemon 1
   m_EditorClassIdentifier: 
   cardName: Imp
-  cost: 2
+  cost: 1
   sprite: {fileID: 7414521385736489138, guid: 4eb1f6c3e100a4743aa5c9ffff91c232, type: 3}
   color: {r: 1, g: 0.3647059, b: 0.023529412, a: 0.9490196}
   target: 4
