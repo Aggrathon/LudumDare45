@@ -38,10 +38,10 @@ public class DeckManager : MonoBehaviour
 
     public void PrepareBattle(Board board) {
         ClearBoard();
-        drawPile.AddRange(_deck);
+        _drawPile.AddRange(_deck);
         energy = 0;
         if (libraryText != null)
-            libraryText.text = drawPile.Count + " Cards";
+            libraryText.text = _drawPile.Count + " Cards";
         if (discardText != null)
             discardText.text = "0 Cards";
         this.board = board;
@@ -49,7 +49,7 @@ public class DeckManager : MonoBehaviour
 
     public void ClearBoard() {
         _discardPile.Clear();
-        drawPile.Clear();
+        _drawPile.Clear();
         foreach (var u in units)
             Destroy(u);
         units.Clear();
@@ -62,13 +62,13 @@ public class DeckManager : MonoBehaviour
     }
 
     public void Shuffle() {
-        drawPile.AddRange(_discardPile);
+        _drawPile.AddRange(_discardPile);
         _discardPile.Clear();
-        Utils.ShuffleList(drawPile);
+        Utils.ShuffleList(_drawPile);
         if (discardText != null)
             discardText.text = "0 Cards";
         if (libraryText != null)
-            libraryText.text = drawPile.Count + " Cards";
+            libraryText.text = _drawPile.Count + " Cards";
     }
 
     [ContextMenu("DrawToHand")]
@@ -81,33 +81,33 @@ public class DeckManager : MonoBehaviour
     }
 
     public BaseCard Draw() {
-        if (drawPile.Count == 0)
+        if (_drawPile.Count == 0)
             Shuffle();
-        if (drawPile.Count == 0)
+        if (_drawPile.Count == 0)
             return null;
-        var tmp = drawPile[drawPile.Count - 1];
-        drawPile.RemoveAt(drawPile.Count - 1);
+        var tmp = _drawPile[_drawPile.Count - 1];
+        _drawPile.RemoveAt(_drawPile.Count - 1);
         if (libraryText != null)
-            libraryText.text = drawPile.Count + " Cards";
+            libraryText.text = _drawPile.Count + " Cards";
         return tmp;
     }
 
     public void AddAtTop(BaseCard card) {
-        drawPile.Add(card);
+        _drawPile.Add(card);
         if (libraryText != null)
-            libraryText.text = drawPile.Count + " Cards";
+            libraryText.text = _drawPile.Count + " Cards";
     }
 
     public void AddAtBottom(BaseCard card) {
-        drawPile.Insert(0, card);
+        _drawPile.Insert(0, card);
         if (libraryText != null)
-            libraryText.text = drawPile.Count + " Cards";
+            libraryText.text = _drawPile.Count + " Cards";
     }
 
     public void AddAtRandom(BaseCard card) {
-        drawPile.Insert(UnityEngine.Random.Range(0, drawPile.Count+1), card);
+        _drawPile.Insert(UnityEngine.Random.Range(0, _drawPile.Count+1), card);
         if (libraryText != null)
-            libraryText.text = drawPile.Count + " Cards";
+            libraryText.text = _drawPile.Count + " Cards";
     }
 
     public void AddToDeck(BaseCard card) {

@@ -56,4 +56,9 @@ public static class Utils
         yield return new WaitForSeconds(time);
         act();
     }
+
+    public static IEnumerator ChainIEnumerator(IEnumerator a, IEnumerator b) {
+        yield return a;
+        yield return b;
+    }
 }

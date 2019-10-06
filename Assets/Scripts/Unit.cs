@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour
         location.unit = this;
         team.units.Add(this);
         hasMoved = true;
-        
+
         var mpb = new MaterialPropertyBlock();
         spriteRenderer.GetPropertyBlock(mpb);
         mpb.SetTexture("_BaseMap", spriteTexture);
@@ -74,7 +74,7 @@ public class Unit : MonoBehaviour
                 return false;
             } else if (sqrDist <= attackDist * attackDist) {
                 hasMoved = true;
-                //TODO: Attack FX
+                AttackFX(target);
                 if (target.unit.Damage(damage) && sqrDist <= moveDist * moveDist) {
                     StopAllCoroutines();
                     StartCoroutine(Utils.LerpMoveTo(transform, target.transform.position));
@@ -110,5 +110,11 @@ public class Unit : MonoBehaviour
         if (location.unit == this)
             location.unit = null;
         team.units.Remove(this);
+    }
+
+    protected virtual void AttackFX(BoardTarget target) {
+        var half = transform.position + (target.transform.position - transform.position) * 0.5f;
+        var back = transform.position;
+        StartCoroutine(Utils.ChainIEnumerator(Utils.LerpMoveTo(transform, half, 0.25f), Utils.LerpMoveTo(transform, back, 0.25f)));
     }
 }
