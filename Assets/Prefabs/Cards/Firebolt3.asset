@@ -18,5 +18,5 @@ MonoBehaviour:
   color: {r: 1, g: 0.3647059, b: 0.023529412, a: 0.9019608}
   target: 3
   upgrades:
-  - {fileID: 11400000, guid: 0b7ef1b9063cef444bed5ee21bf58b07, type: 2}
+  - {fileID: 11400000, guid: 5c7e8e69be48b2e499337ec3d062826e, type: 2}
   damage: 4

@@ -138,8 +138,8 @@ public class Upgrades : MonoBehaviour
             parent.gameObject.SetActive(false);
         } else {
             parent.gameObject.SetActive(true);
-            parent.GetChild(0).GetComponent<Image>().sprite = equip.sprite;
-            parent.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = equip.description;
+            parent.GetChild(1).GetComponent<Image>().sprite = equip.sprite;
+            parent.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = equip.description;
         }
     }
 }
