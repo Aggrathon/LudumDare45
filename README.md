@@ -10,3 +10,7 @@ Play the web version [here](https://aggrathon.github.io/LudumDare45/)
 
 ## Screenshots
 > TODO
+
+## Software Used
+
+Unity, Visual Studio Code, Gimp, Blender, and Bosca Ceoil.
