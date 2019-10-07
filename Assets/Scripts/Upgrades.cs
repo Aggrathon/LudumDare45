@@ -19,7 +19,7 @@ public class Upgrades : MonoBehaviour
 
     public int numUpgrades = 1;
 
-    int numLeft;
+    int numUsed;
     BaseCard _addNewCard;
     BaseCard _replaceOldCard;
     BaseCard _replaceNewCard;
@@ -27,13 +27,13 @@ public class Upgrades : MonoBehaviour
     Equipment _equipmentNewCard;
 
     public void Show() {
-        numLeft = numUpgrades;
+        numUsed = 0;
         SetupUpgrades();
         gameObject.SetActive(true);
     }
 
     private void SetupUpgrades() {
-        title.text = string.Format("Select One    ({0}/{1})", numLeft, numUpgrades);
+        title.text = string.Format("Select One    ({0}/{1})", numUsed + 1, numUpgrades);
         _addNewCard = baseCards[UnityEngine.Random.Range(0, baseCards.Count)];
         PopulateCard(_addNewCard, addNewCard);
         _replaceOldCard = player.deck.deck[UnityEngine.Random.Range(0, player.deck.deck.Count)];
@@ -113,8 +113,8 @@ public class Upgrades : MonoBehaviour
     }
 
     private void FinishUpgrade() {
-        numLeft--;
-        if (numLeft > 0) {
+        numUsed--;
+        if (numUsed < numUpgrades) {
             SetupUpgrades();
         } else {
             gameObject.SetActive(false);

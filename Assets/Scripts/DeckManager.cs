@@ -30,27 +30,27 @@ public class DeckManager : MonoBehaviour
     [System.NonSerialized] public bool interactable = false;
 
     public void PrepareBattle(Board board) {
-        ClearBoard();
-        _drawPile.AddRange(_deck);
-        energy = 0;
-        if (libraryText != null)
-            libraryText.text = _drawPile.Count + " Cards";
-        if (discardText != null)
-            discardText.text = "0 Cards";
-        this.board = board;
-    }
-
-    public void ClearBoard() {
+        // One time
         if (_deck == null)
             _deck = new List<BaseCard>(defaultHand);
+        this.board = board;
+        // Discard
         if (_discardPile == null)
             _discardPile = new List<BaseCard>();
         else
             _discardPile.Clear();
-        if (_drawPile == null)
-            _drawPile = new List<BaseCard>();
-        else
+        if (discardText != null)
+            discardText.text = "0 Cards";
+        // Draw
+        if (_drawPile == null) {
+            _drawPile = new List<BaseCard>(_deck);
+        } else {
             _drawPile.Clear();
+            _drawPile.AddRange(_deck);
+        }
+        if (libraryText != null)
+            libraryText.text = _drawPile.Count + " Cards";
+        //Units
         if (units == null)
             units = new List<Unit>();
         else {
@@ -58,6 +58,13 @@ public class DeckManager : MonoBehaviour
                 Destroy(u.gameObject);
             units.Clear();
         }
+        // Hand
+        if (handTransform != null) {
+            for (int i = handTransform.childCount-1; i >= 0; i--)
+                Destroy(handTransform.GetChild(i).gameObject);
+        }
+        // Reset
+        energy = 0;
     }
 
     public void Discard(BaseCard card) {

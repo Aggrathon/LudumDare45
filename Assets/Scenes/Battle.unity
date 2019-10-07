@@ -1505,7 +1505,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 750d6307f2498bc449e71c3a7feb2ac0, type: 2}
   - {fileID: 11400000, guid: 853abca333543d942b44376fc8238201, type: 2}
   - {fileID: 11400000, guid: 4ef4f5dcd5c50cc42b000b6e7ca7e63a, type: 2}
-  numUpgrades: 1
+  numUpgrades: 2
 --- !u!114 &132271731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4082,7 +4082,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 0}
   handTransform: {fileID: 0}
   messageWindow: {fileID: 0}
-  spawnPositionLimit: {x: 10, y: 2, z: 2}
+  spawnPositionLimit: {x: 10, y: 1, z: 1}
   defaultHand:
   - {fileID: 11400000, guid: bb4a548eb207a094eaed4c8938b71302, type: 2}
   - {fileID: 11400000, guid: bb4a548eb207a094eaed4c8938b71302, type: 2}
@@ -14537,7 +14537,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 0}
   handTransform: {fileID: 0}
   messageWindow: {fileID: 0}
-  spawnPositionLimit: {x: 10, y: 2, z: 2}
+  spawnPositionLimit: {x: 10, y: 1, z: 1}
   defaultHand:
   - {fileID: 11400000, guid: bb4a548eb207a094eaed4c8938b71302, type: 2}
   - {fileID: 11400000, guid: bb4a548eb207a094eaed4c8938b71302, type: 2}

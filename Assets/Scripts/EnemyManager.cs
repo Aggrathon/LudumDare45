@@ -7,7 +7,7 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
 {
     DeckManager deckManager;
     GameManager gameManager;
-    List<BaseCard> deck;
+    List<BaseCard> hand;
     
     IPlayerManager otherPlayer;
     
@@ -19,24 +19,66 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
         gameObject.SetActive(true);
         deckManager = GetComponent<DeckManager>();
         deckManager.PrepareBattle(manager.groundTargets);
-        deck = new List<BaseCard>();
+        hand = new List<BaseCard>();
         otherPlayer = manager.GetOtherPlayer(this);
     }
 
     public void StartTurn() {
+        // Start
         deckManager.energy += energyGain;
         for (int i = 0; i < cardGain; i++)
-            deck.Add(deckManager.Draw());
+            hand.Add(deckManager.Draw());
         deckManager.interactable = true;
-        for (int i = deck.Count - 1; i >= 0; i--)
+        // Units
+        var oppos = gameManager.groundTargets.transform.InverseTransformPoint(otherPlayer.GetPosition());
+        for (int i = 0; i < deckManager.units.Count; i++)
         {
-            if (deck[i] == null) {
-                deck.RemoveAt(i);
+            var unit = deckManager.units[i];
+            var upos = gameManager.groundTargets.transform.InverseTransformPoint(unit.transform.position);
+            if (unit == null) {
+                deckManager.units.RemoveAt(i);
+                i--;
                 continue;
             }
-            if (deckManager.energy >= deck[i].cost) {
+            if (unit.hasMoved) {
+                unit.hasMoved = false;
+            }
+            if ((oppos - upos).sqrMagnitude <= unit.attackDist * unit.attackDist) {
+                otherPlayer.Damage(unit.damage);
+                unit.AttackFX(otherPlayer.GetPosition());
+                continue;
+            }
+            var bt = gameManager.groundTargets.FindBest((BoardTarget b) => {
+                var dist = (b.transform.localPosition - upos).sqrMagnitude;
+                return (dist, b.unit != null && b.unit.team != deckManager && dist < unit.attackDist * unit.attackDist);
+            });
+            if (bt != null) {
+                // Debug.Log("a: " + bt);
+                unit.Move(bt);
+                unit.hasMoved = false;
+                continue;
+            }
+            bt = gameManager.groundTargets.FindBest((BoardTarget b) => {
+                var dist1 = (b.transform.localPosition - upos).sqrMagnitude;
+                var dist2 = (b.transform.localPosition - oppos).sqrMagnitude;
+                return (dist2, b.unit == null && dist1 < unit.moveDist * unit.moveDist);
+            });
+            if (bt != null) {
+                // Debug.Log("m: "+bt);
+                unit.Move(bt);
+                unit.hasMoved = false;
+            }
+        }
+        // Spells
+        for (int i = hand.Count - 1; i >= 0; i--)
+        {
+            if (hand[i] == null) {
+                hand.RemoveAt(i);
+                continue;
+            }
+            if (deckManager.energy >= hand[i].cost) {
                 BoardTarget bt = null;
-                switch (deck[i].target)
+                switch (hand[i].target)
                 {
                     case BaseCard.Target.Empty:
                         bt = gameManager.groundTargets.FindBest((BoardTarget b) => {
@@ -64,49 +106,9 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
                         break;
                 }
                 // Debug.Log("Enemy cast: " + bt + " " + deck[i].cardName);
-                if (deck[i].target == BaseCard.Target.Global || bt != null)
-                    if (deck[i].Cast(bt, deckManager))
-                        deck.RemoveAt(i);
-            }
-        }
-        var oppos = gameManager.groundTargets.transform.InverseTransformPoint(otherPlayer.GetPosition());
-        for (int i = 0; i < deckManager.units.Count; i++)
-        {
-            var unit = deckManager.units[i];
-            var upos = gameManager.groundTargets.transform.InverseTransformPoint(unit.transform.position);
-            if (unit == null) {
-                deckManager.units.RemoveAt(i);
-                i--;
-                continue;
-            }
-            if (unit.hasMoved) {
-                unit.hasMoved = false;
-                continue;
-            }
-            if ((oppos - upos).sqrMagnitude <= unit.attackDist * unit.attackDist) {
-                otherPlayer.Damage(unit.damage);
-                unit.AttackFX(otherPlayer.GetPosition());
-                continue;
-            }
-            var bt = gameManager.groundTargets.FindBest((BoardTarget b) => {
-                var dist = (b.transform.localPosition - upos).sqrMagnitude;
-                return (dist, b.unit != null && b.unit.team != deckManager && dist < unit.attackDist * unit.attackDist);
-            });
-            if (bt != null) {
-                // Debug.Log("a: " + bt);
-                unit.Move(bt);
-                unit.hasMoved = false;
-                continue;
-            }
-            bt = gameManager.groundTargets.FindBest((BoardTarget b) => {
-                var dist1 = (b.transform.localPosition - upos).sqrMagnitude;
-                var dist2 = (b.transform.localPosition - oppos).sqrMagnitude;
-                return (dist1 + dist2, b.unit == null && dist1 < unit.moveDist * unit.moveDist);
-            });
-            if (bt != null) {
-                // Debug.Log("m: "+bt);
-                unit.Move(bt);
-                unit.hasMoved = false;
+                if (hand[i].target == BaseCard.Target.Global || bt != null)
+                    if (hand[i].Cast(bt, deckManager))
+                        hand.RemoveAt(i);
             }
         }
         EndTurn();
@@ -115,8 +117,8 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
     public void EndTurn() {
         deckManager.interactable = false;
         if (deckManager.units.Count == 0) {
-            for (int i = 0; i < deck.Count; i++)
-                if (deck[i]?.target == BaseCard.Target.Spawn)
+            for (int i = 0; i < hand.Count; i++)
+                if (hand[i]?.target == BaseCard.Target.Spawn)
                     goto Out;
             for (int i = 0; i < deckManager.drawPile.Count; i++)
                 if (deckManager.drawPile[i]?.target == BaseCard.Target.Spawn)
@@ -131,7 +133,6 @@ public class EnemyManager: MonoBehaviour, IPlayerManager
     public void EndCombat(bool won) {
         deckManager.interactable = false;
         if (!won) {
-            deckManager.ClearBoard();
             gameObject.SetActive(false);
         }
     }

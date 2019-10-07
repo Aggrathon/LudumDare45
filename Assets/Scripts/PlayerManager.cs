@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         deckManager.interactable = false;
         endTurnButton?.SetActive(false);
         if (won) {
-            deckManager.ClearBoard();
+            deckManager.PrepareBattle(gameManager.groundTargets);
             upgrades.Show();
         } else {
             gameOverScreen.SetActive(true);
