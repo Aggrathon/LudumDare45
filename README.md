@@ -1,5 +1,7 @@
-# Unnamed Ludum Dare 45 Entry
-> This README need updating
+# The Void Conjurer - Ludum Dare 45
+A deck-building card game that starts from a deck consisting of a single “void” card. The deck is enhanced by adding and upgrading cards and equipment.
+
+> `Tip:` Even if the basic cards seem useless they are needed for upgrading to better cards.
 
 ## Links
 
