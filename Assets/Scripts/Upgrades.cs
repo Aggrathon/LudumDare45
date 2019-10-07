@@ -113,7 +113,7 @@ public class Upgrades : MonoBehaviour
     }
 
     private void FinishUpgrade() {
-        numUsed--;
+        numUsed++;
         if (numUsed < numUpgrades) {
             SetupUpgrades();
         } else {
